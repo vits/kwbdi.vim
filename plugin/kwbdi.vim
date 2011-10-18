@@ -20,6 +20,11 @@ noremap <unique> <script> <Plug>Kwbd  :call <SID>Kwbd(1)<CR>:<BS>
 function <SID>Kwbd(kwbdStage)
   if(a:kwbdStage == 1)
     let g:kwbdBufNum = bufnr("%")
+    if getbufvar(g:kwbdBufNum, '&modified')
+      echoerr 'No write since last change for buffer '.bufname('%')
+      return
+    endif
+
     let g:kwbdWinNum = winnr()
     let g:kwbdEmptyBuffer=0
 
